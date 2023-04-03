@@ -1,21 +1,26 @@
-import Head from "next/head"
+import Header from "./header"
 import Link from "next/link"
-import Image from "next/image"
-export default function Layout({children}){
-    return(
+import Image from 'next/image'
+
+export default function MyLayout(props) {
+    return (
         <>
-    <Head>
-      <title>Online Book Store</title>
-      <link rel="icon" href="book.png"></link>
-    </Head>
-    <h3>Online Book Store</h3>
-    <Image src="/book.png" width="100" height="100"/>
-    <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About Me</Link>
-    </nav>
-    {children}
-    <footer style={{position: "absolute", bottom: 0, width: "100%"}}>Copyright By AB</footer>
+            <Header title={props.title} />
+            <nav>
+                <Link href="/"> Home</Link>
+                <Link href="/about"> About US</Link>
+                <Link href="/books"> Books </Link>
+                <Link href="/admindashboard"> Admin Dashboard </Link>
+                <Link href="/login"> Login </Link>
+                <Link href="/logout"> Log Out </Link>
+
+            </nav>
+            <Image src="/book.png" alt="me" width="64" height="64" />
+            <main>
+
+            </main>
+            <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                Online Book Store @copyright</div>
         </>
     )
 }
