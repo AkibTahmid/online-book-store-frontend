@@ -1,61 +1,55 @@
-import { useState } from "react";
-import Link from "next/link";
-import Router from "next/router";
 
-const LoginForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+import { useState } from 'react';
+
+export default function SignIn() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            const response = await fetch("/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+            const response = await fetch('http://localhost:3000/admin/signin', {
+                method: 'POST',
                 body: JSON.stringify({ email, password }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
-            if (response.ok) {
-                Router.push("/");
-            } else {
-                throw new Error(await response.text());
-            }
+
+            const data = await response.json();
+
+            // Set the response message based on the server's response
+            setResponseMessage(data.message);
         } catch (error) {
-            console.error("An unexpected error occurred:", error);
+            console.error(error);
         }
     };
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Log in</button>
-            <div>
-                <Link href="/forgot-password">
-                    Forgot password?
-                </Link>
-                <span> | </span>
-                <Link href="/signup">
-                    Sign up
-                </Link>
-            </div>
-        </form>
-    );
-};
 
-export default LoginForm;
+    return (
+        <div>
+            <h1>Sign In</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" value={email} onChange={handleEmailChange} />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" value={password} onChange={handlePasswordChange} />
+                </div>
+                <button type="submit">signin</button>
+            </form>
+            {responseMessage && <p>{responseMessage}</p>}
+        </div>
+    );
+}
