@@ -12,8 +12,8 @@ export default function MyLayout(props) {
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
                     <Link href="/" className="flex items-center">
-                        <Image src="/ico.png" alt="me" width="64" height="64" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ABC Ecommerce</span>
+                        <Image src="/book.png" alt="me" width="64" height="64" />
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Online Book Store</span>
                     </Link>
 
                     <Session />

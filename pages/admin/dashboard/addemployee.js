@@ -7,7 +7,7 @@ import SessionCheck from '../../component/sessioncheck'
 import AdminDrawer from '../../component/admindrawer'
 import Footer from "../../../pages/component/footer"
 
-export default function AddAdmin() {
+export default function AddEmployee() {
     const {
         register,
         handleSubmit,
@@ -30,10 +30,9 @@ export default function AddAdmin() {
         formData.append('email', data.email);
         formData.append('password', data.password);
         formData.append('address', data.address);
-        formData.append('myfile', data.myfile[0]);
         console.log(formData);
         try {
-            const response = await axios.post("http://localhost:3000/admin/insertadmin",
+            const response = await axios.post("http://localhost:3000/admin/instertemployee",
                 formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -41,14 +40,14 @@ export default function AddAdmin() {
             });
 
 
-            setSuccess('Admin add successfully');
+            setSuccess('Employee add successfully');
             reset();
 
         }
         catch (error) {
             console.log(error.response.data.message);
 
-            setSuccess('Admin add unsuccessfull ' + error.response.data.message);
+            setSuccess('Employee add unsuccessfull ' + error.response.data.message);
 
         }
 
@@ -58,7 +57,7 @@ export default function AddAdmin() {
     return (
         <>
             <SessionCheck />
-            <MyLayout title="Add Admin" />
+            <MyLayout title="Add Employee" />
             <AdminDrawer />
             <div class="pt-44 sm:ml-64">
                 <section class="bg-gray-50 dark:bg-gray-900">
@@ -67,7 +66,7 @@ export default function AddAdmin() {
                         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                    Add Admin User
+                                    Add Employee
                                 </h1>
                                 <p id="filled_success_help" class="mt-2 text-xs text-green-600 dark:text-green-400"><span class="font-medium"> {success}</span></p>
 
@@ -123,23 +122,7 @@ export default function AddAdmin() {
                                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
                                         <textarea id="address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Adress here...." {...register('address', { required: true })} />
                                     </div>
-                                    <div>
 
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                                        <input type="file" id="myfile" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                            {...register('myfile', { required: true, validate: validateFile })}
-                                        />
-                                        {errors.myfile &&
-                                            <p>
-                                                {errors.myfile.type === 'required'
-                                                    ?
-                                                    <p id="outlined_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">file is required</span></p>
-                                                    :
-
-                                                    <p id="outlined_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">invalid file</span></p>
-                                                }
-                                            </p>}
-                                    </div>
                                     <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Submit</button>
                                 </form>
                             </div>
