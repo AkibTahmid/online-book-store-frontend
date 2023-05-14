@@ -6,8 +6,8 @@ import { useRouter } from 'next/router'
 import SessionCheck from '../../component/sessioncheck'
 import AdminDrawer from '../../component/admindrawer'
 import Footer from "../../../pages/component/footer"
-
 export default function AddAdmin() {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -22,6 +22,7 @@ export default function AddAdmin() {
             return false;
         }
     }
+
     const [success, setSuccess] = useState('')
     const onSubmit = async (data) => {
         console.log(data);
@@ -33,7 +34,7 @@ export default function AddAdmin() {
         formData.append('myfile', data.myfile[0]);
         console.log(formData);
         try {
-            const response = await axios.post("http://localhost:3000/admin/insertadmin",
+            const response = await axios.post("https://nestjsproject-production-364f.up.railway.app/admin/insertadmin",
                 formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -49,10 +50,7 @@ export default function AddAdmin() {
             console.log(error.response.data.message);
 
             setSuccess('Admin add unsuccessfull ' + error.response.data.message);
-
         }
-
-
     };
 
     return (
@@ -120,7 +118,7 @@ export default function AddAdmin() {
                                     </div>
                                     <div>
 
-                                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adress</label>
                                         <textarea id="address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Adress here...." {...register('address', { required: true })} />
                                     </div>
                                     <div>
