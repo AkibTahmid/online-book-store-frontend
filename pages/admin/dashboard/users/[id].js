@@ -14,6 +14,7 @@ export default function UserProfile({ data }) {
             <AdminDrawer />
 
             <UserLayout
+                id={data.id}
                 filename={data.filename}
                 name={data.name}
                 email={data.email}
